@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Puck Mod Central — Niche Hockey Gear Reviews</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ice-mid: #c2dde8;
+    --rink-deep: #051e31;
+    --red-bright: #e74c3c;
+    --gold: #f0c040;
+    --gold-dim: #c9a030;
+    --white: #f5f9fc;
+    --dark-text: #0d1b24;
+    --muted: #4a6070;
+    --card-bg: #0e2535;
+    --card-border: #1a3d55;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--rink-deep);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── BACKGROUND ── */
+  .rink-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(ellipse 120% 60% at 50% 110%, #0a3d62 0%, #051e31 60%, #020e18 100%);
+  }
+  .rink-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(255,255,255,0.02) 80px),
+      repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(255,255,255,0.012) 80px);
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    backdrop-filter: blur(10px);
+    background: rgba(5,30,49,0.85);
+  }
+  .logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 1.5rem;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo-puck {
+    width: 28px;
+    height: 18px;
+    background: #111;
+    border-radius: 50%;
+    border: 2px solid #555;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.1);
+    transform: perspective(40px) rotateX(20deg);
+    flex-shrink: 0;
+  }
+  .logo span { color: var(--gold); }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 68vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3.5rem 2rem 5rem;
+    overflow: hidden;
+  }
+  .hero-rink {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.13;
+  }
+
+  .hero-puck-wrap {
+    margin-bottom: 1.75rem;
+    animation: puckFloat 3s ease-in-out infinite;
+  }
+  @keyframes puckFloat {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-12px); }
+  }
+  .hero-puck {
+    width: 96px;
+    height: 60px;
+    background: linear-gradient(180deg, #2a2a2a 0%, #111 100%);
+    border-radius: 50%;
+    border: 3px solid #444;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.9), 0 0 50px rgba(10,61,98,0.5), inset 0 2px 0 rgba(255,255,255,0.1);
+    transform: perspective(80px) rotateX(25deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-puck::after {
+    content: 'PMC';
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 0.95rem;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.28);
+  }
+  .puck-shadow {
+    width: 76px;
+    height: 13px;
+    background: rgba(0,0,0,0.5);
+    border-radius: 50%;
+    margin: 7px auto 0;
+    filter: blur(7px);
+    animation: shadowPulse 3s ease-in-out infinite;
+  }
+  @keyframes shadowPulse {
+    0%, 100% { transform: scaleX(1);   opacity: 0.5; }
+    50%       { transform: scaleX(0.7); opacity: 0.25; }
+  }
+
+  .hero-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.7rem;
+  }
+  .hero h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.8rem, 8vw, 6rem);
+    line-height: 0.95;
+    text-transform: uppercase;
+    color: var(--white);
+    text-shadow: 0 4px 40px rgba(10,61,98,0.8);
+    margin-bottom: 0.5rem;
+  }
+  .hero h1 .accent { color: var(--gold); }
+  .hero-sub {
+    font-size: 1rem;
+    color: var(--ice-mid);
+    max-width: 440px;
+    margin: 1.1rem auto 2rem;
+    line-height: 1.65;
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gold);
+    color: var(--dark-text);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.8rem 2rem;
+    border-radius: 4px;
+    transition: all 0.2s;
+    box-shadow: 0 4px 20px rgba(240,192,64,0.25);
+  }
+  .hero-cta:hover { background: #f8d05a; transform: translateY(-2px); }
+
+  /* ── CATEGORY PILLS ── */
+  #categories { padding: 1.75rem 0; overflow: hidden; }
+  .cats-track {
+    display: flex;
+    gap: 0.9rem;
+    animation: catsScroll 28s linear infinite;
+    width: max-content;
+    padding: 0 2rem;
+  }
+  .cats-track:hover { animation-play-state: paused; }
+  @keyframes catsScroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .cat-pill {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(14,37,53,0.9);
+    border: 1px solid var(--card-border);
+    border-radius: 100px;
+    padding: 0.5rem 1.15rem;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: border-color 0.2s;
+  }
+  .cat-pill:hover { border-color: var(--gold); }
+  .cat-pill-icon  { font-size: 1rem; }
+  .cat-pill-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    color: var(--ice-mid);
+  }
+
+  /* ── PICKS ── */
+  #picks { padding: 4rem 2rem; background: rgba(8,22,35,0.4); }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.76rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.45rem;
+  }
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    text-transform: uppercase;
+    line-height: 1;
+    color: var(--white);
+    margin-bottom: 2.25rem;
+  }
+  .section-title .accent { color: var(--gold); }
+
+  .picks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.2rem;
+  }
+  .pick-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.45s ease, transform 0.45s ease, box-shadow 0.25s;
+  }
+  .pick-card.visible { opacity: 1; transform: translateY(0); }
+  .pick-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(240,192,64,0.15);
+  }
+  .pick-card-img {
+    height: 175px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4.2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .pick-card-img .glow { position: absolute; inset: 0; opacity: 0.12; }
+  .pick-card-img .emoji { position: relative; z-index: 1; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5)); }
+
+  .badge {
+    position: absolute;
+    top: 10px; left: 10px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+    z-index: 2;
+  }
+  .badge-gold { background: var(--gold);       color: var(--dark-text); }
+  .badge-red  { background: var(--red-bright); color: #fff; }
+  .badge-blue { background: #1a6eb5;           color: #fff; }
+
+  .pick-body { padding: 1.1rem; }
+  .pick-category {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 0.3rem;
+  }
+  .pick-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1.18rem;
+    color: var(--white);
+    margin-bottom: 0.4rem;
+    line-height: 1.2;
+  }
+  .stars-row { display: flex; align-items: center; gap: 4px; margin-bottom: 0.4rem; }
+  .star       { color: var(--gold); font-size: 12px; }
+  .star-empty { color: #2a4a5a;     font-size: 12px; }
+  .rating-count { font-size: 0.72rem; color: var(--muted); }
+
+  .pick-desc {
+    font-size: 0.83rem;
+    color: var(--muted);
+    line-height: 1.55;
+    margin-bottom: 0.9rem;
+  }
+  .pick-footer { display: flex; align-items: center; justify-content: space-between; }
+  .pick-price {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--gold);
+  }
+  .pick-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.76rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.95rem;
+    border-radius: 3px;
+    text-decoration: none;
+    transition: all 0.2s;
+    width: 100%;
+    margin-top: 0.8rem;
+  }
+  .pick-btn:hover { background: var(--gold); color: var(--dark-text); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: rgba(5,15,24,0.9);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 1.25rem 2rem;
+    text-align: center;
+  }
+  .footer-disclaimer { font-size: 0.76rem; color: #2e4d60; }
+
+  @media (max-width: 600px) {
+    .picks-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="rink-bg"></div>
+
+<!-- HEADER -->
+<header>
+  <a href="#" class="logo">
+    <div class="logo-puck"></div>
+    Puck Mod <span>Central</span>
+  </a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <svg class="hero-rink" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <line x1="500" y1="0" x2="500" y2="500" stroke="#c0392b" stroke-width="1.5"/>
+    <line x1="333" y1="0" x2="333" y2="500" stroke="#1a6eb5" stroke-width="1"/>
+    <line x1="667" y1="0" x2="667" y2="500" stroke="#1a6eb5" stroke-width="1"/>
+    <circle cx="500" cy="250" r="90" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+    <circle cx="500" cy="250" r="4" fill="#c0392b" opacity="0.7"/>
+    <path d="M60 160 Q320 135 580 175 Q800 210 960 185" fill="none" stroke="white" stroke-width="1.2" stroke-dasharray="7 6">
+      <animate attributeName="stroke-dashoffset" from="0" to="-400" dur="7s" repeatCount="indefinite"/>
+    </path>
+    <path d="M40 330 Q280 310 560 355 Q800 390 970 355" fill="none" stroke="white" stroke-width="1" stroke-dasharray="5 8">
+      <animate attributeName="stroke-dashoffset" from="-150" to="200" dur="9s" repeatCount="indefinite"/>
+    </path>
+  </svg>
+
+  <div class="hero-puck-wrap">
+    <div class="hero-puck"></div>
+    <div class="puck-shadow"></div>
+  </div>
+  <p class="hero-eyebrow">🏒 The Underground Gear Authority</p>
+  <h1>Puck Mod <span class="accent">Central</span></h1>
+  <p class="hero-sub">Honest reviews of the niche hockey gadgets serious players actually want — rink-tested, no fluff.</p>
+  <a href="#picks" class="hero-cta">Browse Top Picks →</a>
+</section>
+
+<!-- CATEGORY PILLS -->
+<section id="categories">
+  <div class="cats-track">
+    <a class="cat-pill" href="#"><span class="cat-pill-icon">⚙️</span><span class="cat-pill-label">Blade Tools</span></a>
+    <a class="cat-pill" href="#"><span class="cat-pill-icon">🧲</span><span class="cat-pill-label">Training Aids</span></a>
+    <a class="cat-pill" href="#"><span class="cat-pill-icon">🎯</span><span class="cat-pill-label">Shooting Targets</span></a>
+    <a class="cat-pill" href="#"><span class="cat-pill-icon">🩺</span><span class="cat-pill-label">Recovery Gear</span></a>
+    <a class="cat-pill" href="#"><span class="cat-pill-icon">🔧</span><span class="cat-pill-label">Skate Mods</span></a>
+    <a class="cat-pill" href="#"><span class="cat-pill-icon">📹</span><span class="cat-pill-label">Video Analysis</span></a>
+    <a class="cat-pill" href="#"><span class="cat-pill-icon">🌡️</span><span class="cat-pill-label">Ice Monitors</span></a>
+    <a class="cat-pill" href="#"><span class="cat-pill-icon">💡</span><span class="cat-pill-label">Stick Sensors</span></a>
+    <a class="cat-pill" href="#"><span class="cat-pill-icon">⚙️</span><span class="cat-pill-label">Blade Tools</span></a>
+    <a class="cat-pill" href="#"><span class="cat-pill-icon">🧲</span><span class="cat-pill-label">Training Aids</span></a>
+    <a class="cat-pill" href="#"><span class="cat-pill-icon">🎯</span><span class="cat-pill-label">Shooting Targets</span></a>
+    <a class="cat-pill" href="#"><span class="cat-pill-icon">🩺</span><span class="cat-pill-label">Recovery Gear</span></a>
+    <a class="cat-pill" href="#"><span class="cat-pill-icon">🔧</span><span class="cat-pill-label">Skate Mods</span></a>
+    <a class="cat-pill" href="#"><span class="cat-pill-icon">📹</span><span class="cat-pill-label">Video Analysis</span></a>
+    <a class="cat-pill" href="#"><span class="cat-pill-icon">🌡️</span><span class="cat-pill-label">Ice Monitors</span></a>
+    <a class="cat-pill" href="#"><span class="cat-pill-icon">💡</span><span class="cat-pill-label">Stick Sensors</span></a>
+  </div>
+</section>
+
+<!-- PICKS -->
+<section id="picks">
+  <div class="container">
+    <p class="section-label">Staff Picks</p>
+    <h2 class="section-title">This Month's <span class="accent">Top Gear</span></h2>
+    <div class="picks-grid">
+
+      <div class="pick-card">
+        <div class="pick-card-img" style="background:#0a2030;">
+          <div class="glow" style="background:radial-gradient(circle,#1a6eb5,transparent 70%);"></div>
+          <span class="emoji">⚙️</span>
+          <span class="badge badge-gold">★ Editor's Choice</span>
+        </div>
+        <div class="pick-body">
+          <p class="pick-category">Skate Sharpening</p>
+          <p class="pick-name">Sparx Skate Sharpener ES100</p>
+          <div class="stars-row">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+            <span class="rating-count">(214 reviews)</span>
+          </div>
+          <p class="pick-desc">Home sharpening at pro quality. Custom hollow selection, 100 sharpenings per ring. Game-changing for serious players tired of rink schedules.</p>
+          <div class="pick-footer"><span class="pick-price">$699</span></div>
+          <a href="https://amazon.com" class="pick-btn" target="_blank" rel="noopener">View on Amazon →</a>
+        </div>
+      </div>
+
+      <div class="pick-card">
+        <div class="pick-card-img" style="background:#1a0a08;">
+          <div class="glow" style="background:radial-gradient(circle,#c0392b,transparent 70%);"></div>
+          <span class="emoji">🎯</span>
+          <span class="badge badge-red">🔥 Hot Deal</span>
+        </div>
+        <div class="pick-body">
+          <p class="pick-category">Shot Training</p>
+          <p class="pick-name">PassMaster Pro Shooting Board</p>
+          <div class="stars-row">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star-empty">★</span>
+            <span class="rating-count">(87 reviews)</span>
+          </div>
+          <p class="pick-desc">Heavy duty off-ice shooting board with weighted targets and sniper zones. Low-friction synthetic surface for realistic puck feel.</p>
+          <div class="pick-footer"><span class="pick-price">$129</span></div>
+          <a href="https://amazon.com" class="pick-btn" target="_blank" rel="noopener">View on Amazon →</a>
+        </div>
+      </div>
+
+      <div class="pick-card">
+        <div class="pick-card-img" style="background:#071a14;">
+          <div class="glow" style="background:radial-gradient(circle,#0f6e56,transparent 70%);"></div>
+          <span class="emoji">💡</span>
+          <span class="badge badge-blue">New</span>
+        </div>
+        <div class="pick-body">
+          <p class="pick-category">Stick Sensors</p>
+          <p class="pick-name">SlapShot IQ Stick Sensor Gen 2</p>
+          <div class="stars-row">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star-empty">★</span>
+            <span class="rating-count">(41 reviews)</span>
+          </div>
+          <p class="pick-desc">Clips to any stick shaft. Tracks shot speed, release angle, and flex in real-time via Bluetooth app. Data-driven improvement for any level.</p>
+          <div class="pick-footer"><span class="pick-price">$89</span></div>
+          <a href="https://amazon.com" class="pick-btn" target="_blank" rel="noopener">View on Amazon →</a>
+        </div>
+      </div>
+
+      <div class="pick-card">
+        <div class="pick-card-img" style="background:#1a1408;">
+          <div class="glow" style="background:radial-gradient(circle,#ba7517,transparent 70%);"></div>
+          <span class="emoji">🔥</span>
+        </div>
+        <div class="pick-body">
+          <p class="pick-category">Equipment Care</p>
+          <p class="pick-name">Pro Stock Blade Baking Kit</p>
+          <div class="stars-row">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+            <span class="rating-count">(156 reviews)</span>
+          </div>
+          <p class="pick-desc">Professional-grade at-home blade baking. Includes oven insert, heat-safe molds, and step-by-step guide. Get a custom fit without the shop fee.</p>
+          <div class="pick-footer"><span class="pick-price">$59</span></div>
+          <a href="https://amazon.com" class="pick-btn" target="_blank" rel="noopener">View on Amazon →</a>
+        </div>
+      </div>
+
+      <div class="pick-card">
+        <div class="pick-card-img" style="background:#0a0a1a;">
+          <div class="glow" style="background:radial-gradient(circle,#534ab7,transparent 70%);"></div>
+          <span class="emoji">📹</span>
+        </div>
+        <div class="pick-body">
+          <p class="pick-category">Video Analysis</p>
+          <p class="pick-name">IceVision Rink Mount Camera</p>
+          <div class="stars-row">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star-empty">★</span>
+            <span class="rating-count">(63 reviews)</span>
+          </div>
+          <p class="pick-desc">Wide-angle magnetic rink board mount. Cold-rated battery holds 4hrs at -20°C. App overlays skating lines and generates shift breakdowns.</p>
+          <div class="pick-footer"><span class="pick-price">$219</span></div>
+          <a href="https://amazon.com" class="pick-btn" target="_blank" rel="noopener">View on Amazon →</a>
+        </div>
+      </div>
+
+      <div class="pick-card">
+        <div class="pick-card-img" style="background:#0a1a1a;">
+          <div class="glow" style="background:radial-gradient(circle,#1d9e75,transparent 70%);"></div>
+          <span class="emoji">🩺</span>
+        </div>
+        <div class="pick-body">
+          <p class="pick-category">Recovery</p>
+          <p class="pick-name">ColdEdge Compression Leg System</p>
+          <div class="stars-row">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+            <span class="rating-count">(98 reviews)</span>
+          </div>
+          <p class="pick-desc">Pneumatic compression sleeves built for hockey legs — wraps calves, shins, and ankles. Works with ice packs. Cuts recovery time between back-to-backs.</p>
+          <div class="pick-footer"><span class="pick-price">$179</span></div>
+          <a href="https://amazon.com" class="pick-btn" target="_blank" rel="noopener">View on Amazon →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-disclaimer">As an Amazon Associate I earn from qualifying purchases.</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 90);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.pick-card').forEach(card => observer.observe(card));
+</script>
+</body>
+</html>
